@@ -1,0 +1,85 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+
+        Schema::create('products', function(Blueprint $table){
+            $table->ulid();
+            $table->string('name');
+            $table->string('deskripsi');
+            $table->timestamps();
+        });
+
+        Schema::create('product_prices', function(Blueprint $table){
+            $table->id();
+
+            $table->foreignUlid('product_id')->constrained('products');
+            $table->unsignedMediumInteger('harga_dalam_rupiah');
+
+            $table->timestamps();
+        });
+
+        Schema::create('cups', function(Blueprint $table){
+            $table->ulid();
+            $table->foreignId('user_id')->constrained('users');
+            $table->timestamps();
+        });
+
+        Schema::create('cup_details', function(Blueprint $table){
+            $table->id();
+
+            $table->foreignUlid('cup_id')->constrained('cups');
+            $table->foreignUlid('product_id')->constrained('products');
+            
+            $table->unsignedBigInteger('quantity')->default(1);
+            $table->timestamps();
+        });
+
+        Schema::create('orders', function(Blueprint $table){
+            $table->ulid();
+            $table->foreignId('user_id')->constrained('users');
+
+            $table->timestamp('dipesan_pada')->nullable();
+            $table->timestamp('diproses_pada')->nullable();
+            $table->timestamp('dikirim_pada')->nullable();
+            $table->timestamp('diterima_pada')->nullable();
+            
+            $table->timestamps();
+        });
+
+        Schema::create('order_details', function(Blueprint $table){
+            $table->id();
+
+            $table->foreignUlid('order_id')->constrained('orders');
+            $table->foreignUlid('product_id')->constrained('products');
+
+            $table->unsignedBigInteger('quantity')->default(1);
+            $table->unsignedBigInteger('harga_dalam_rupiah');
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        //
+        Schema::dropIfExists('order_details');
+        Schema::dropIfExists('orders');
+        Schema::dropIfExists('cup_details');
+        Schema::dropIfExists('cups');
+        Schema::dropIfExists('product_prices');
+        Schema::dropIfExists('products');
+    }
+};
