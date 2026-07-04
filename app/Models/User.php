@@ -29,4 +29,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function peran(){
+        return $this->belongsToMany(Peran::class, 'peran_users', 'user_id', 'peran_id')
+                ->withPivot(['name'])
+                ->withTimestamps();
+    }
+
+    public function cup(){
+        return $this->hasOne(Cup::class, 'user_id');
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class, 'user_id');
+    }
+    
 }

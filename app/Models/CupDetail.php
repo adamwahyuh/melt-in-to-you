@@ -10,4 +10,12 @@ class CupDetail extends Model
 {
     //
     protected $table = 'cup_details';
+
+    public function cup(){
+        return $this->belongsTo(Cup::class, 'cup_id');
+    }
+
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

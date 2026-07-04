@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Peran;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,10 +12,31 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('peran', function(Blueprint $table){
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('peran_users', function(Blueprint $table){
+            $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('peran_id')->constrained('peran');
+            $table->timestamps();
+        });
+
+        $roles = ['kasir', 'stocker', 'owner'];
+
+        foreach($roles as $role){
+            Peran::create([
+                'name' => $role
+            ]);
+        }
 
         Schema::create('products', function(Blueprint $table){
             $table->ulid();
             $table->string('name');
+            $table->string('foto')->nullable();
             $table->string('deskripsi');
             $table->timestamps();
         });

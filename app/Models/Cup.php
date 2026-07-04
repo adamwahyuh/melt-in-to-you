@@ -12,4 +12,9 @@ class Cup extends Model
     use HasUlids;
     //
     protected $table = 'cups';
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    
 }

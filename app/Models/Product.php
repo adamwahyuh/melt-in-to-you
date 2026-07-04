@@ -12,4 +12,9 @@ class Product extends Model
     use HasUlids;
     //
     protected $table = "products";
+
+    public function prices(){
+        return $this->hasMany(ProductPrice::class, 'product_id');
+    }
+
 }
