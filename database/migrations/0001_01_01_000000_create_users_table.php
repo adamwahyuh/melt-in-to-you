@@ -45,6 +45,12 @@ return new class extends Migration
             'username' => 'adam',
             'password' => Hash::make('adam'),
         ]);
+        User::create([
+            'name' => 'Vera',
+            'email' => 'ver@gmail.com',
+            'username' => 'vera',
+            'password' => Hash::make('vera'),
+        ]);
     }
 
     /**
