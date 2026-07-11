@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['name', 'email', 'password', 'username'])]
 #[Hidden(['password', 'remember_token'])]
+#[Appends(['initials'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -44,4 +46,17 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'user_id');
     }
     
+    public function getInitialsAttribute(){
+        $name = trim($this->name);
+        $words = explode(' ', $name);
+
+        if(count($words) === 1) {
+            return strtoupper(substr($words[0], 0 , 1));
+        }
+
+        $first = substr($words[0], 0, 1);
+        $last = substr(end($words), 0, 1);
+
+        return strtoupper($first . $last);
+    }
 }

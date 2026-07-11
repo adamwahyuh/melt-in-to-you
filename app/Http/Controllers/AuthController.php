@@ -17,6 +17,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($data)){
             $request->session()->regenerate();
+            $user = Auth::id();
+            $user = User::where('id', $user)->first();
+
+            if($user->peran()->exists()) return redirect()->route('page.dashboard.index');
+            
             return redirect()->route('index');
         }
 
