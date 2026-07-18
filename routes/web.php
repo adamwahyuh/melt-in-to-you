@@ -14,7 +14,7 @@ Route::get('/register', [PagesController::class, 'registerPage'])->middleware('g
 Route::post('/register', [AuthController::class, 'resgister'])->middleware('guest')->name('post.register');
 Route::post('/logut', [AuthController::class, 'logout'])->middleware('auth')->name('post.logout');
 
-Route::prefix('/dashboard')->middleware(['can:kasir', 'can:owner', 'can:stocker'])->group(function(){
+Route::prefix('/>_<')->middleware(['can:kasir', 'can:owner', 'can:stocker'])->group(function(){
     Route::get('/', [PagesController::class, 'dashboardPage'])->name('page.dashboard.index');
 
     Route::prefix('/kasir')->middleware('can:kasir')->group(function(){
@@ -23,12 +23,15 @@ Route::prefix('/dashboard')->middleware(['can:kasir', 'can:owner', 'can:stocker'
 
     Route::prefix('/stocker')->middleware('can:stocker')->group(function(){
         Route::get('/', [PagesController::class, 'stockerIndexPage'])->name('page.dashboard.stocker.index');
+        
+        Route::get('/tambah_menu', [PagesController::class, 'createProductPage'])->name('page.product.create');
 
         Route::post('/tambah_menu', [ProductController::class, 'store'])->name('post.product.store');
-        Route::put('/update_product/{product}', [ProductController::class,'update'])->name('put.product.update');
-        Route::post('/update_harga/{product}', [ProductController::class, 'updatePrice'])->name('post.product.update_price');
-
-        Route::delete('/delete_product/{product}', [ProductController::class,'delete'])->name('delete.product.delete');
+        Route::get('/edit/{product}', [PagesController::class, 'editProductPage'])->name('page.product.edit');
+        
+        Route::put('/update_product/{product}', [ProductController::class,'updateProduct'])->name('put.product.update');
+        Route::post('/update_harga/{product}', [ProductController::class, 'updateHarga'])->name('post.product.update_price');
+        Route::delete('/delete_product/{product}', [ProductController::class,'deleteProduct'])->name('delete.product.delete');
 
     });
 

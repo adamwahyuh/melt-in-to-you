@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable(['dikirim_pada', 'dipesan_pada', 'diproses_pada', 'diterima_pada', 'user_id'])]
 class Order extends Model
 {
     //
-    use HasUlids;
+    use HasUlids, SoftDeletes;
     protected $table = 'orders';
 
     public function user(){

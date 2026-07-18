@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Peran;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -35,10 +36,12 @@ return new class extends Migration
         }
 
         Schema::create('products', function(Blueprint $table){
-            $table->ulid();
+            $table->ulid('id')->primary();
             $table->string('name');
             $table->string('foto')->nullable();
+            $table->boolean('is_default')->nullable()->default(false);
             $table->string('deskripsi');
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -52,7 +55,7 @@ return new class extends Migration
         });
 
         Schema::create('cups', function(Blueprint $table){
-            $table->ulid();
+            $table->ulid('id')->primary();
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
@@ -68,14 +71,14 @@ return new class extends Migration
         });
 
         Schema::create('orders', function(Blueprint $table){
-            $table->ulid();
+            $table->ulid('id')->primary();
             $table->foreignId('user_id')->constrained('users');
 
             $table->timestamp('dipesan_pada')->nullable();
             $table->timestamp('diproses_pada')->nullable();
             $table->timestamp('dikirim_pada')->nullable();
             $table->timestamp('diterima_pada')->nullable();
-            
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -94,7 +97,15 @@ return new class extends Migration
         $semuaPeran = Peran::pluck('id')->toArray();
         $user = User::where('username', 'adam')->first();
         $user->peran()->sync($semuaPeran);
-        
+
+        $product = Product::create([
+            'name' => 'Ice Cream Coklat',
+            'deskripsi' => 'Dengan coklat premium manis sepanjang hari',
+            'foto' =>  'images/products/coklat.jpeg',
+            'is_default' => true,
+        ]);
+
+        $product->prices()->create(['harga_dalam_rupiah' => 5000]);
     }
 
     /**

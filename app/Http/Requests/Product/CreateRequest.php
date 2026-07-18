@@ -25,7 +25,7 @@ class CreateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'deskripsi' => ['required', 'string', 'max:300'],
-            'foto' => ['required', 'file', 'mimes:png,jpg'],
+            'foto' => ['required', 'file', 'mimes:png,jpg,jpeg'],
             'harga' => ['required', 'integer', 'min:0'],
         ];
     }
