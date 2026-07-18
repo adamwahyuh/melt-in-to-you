@@ -12,6 +12,10 @@ class PagesController extends Controller
         return view('login');
     }
 
+    public function index(){
+        $products = Product::with('prices')->get();
+        return view('welcome', compact('products'));
+    }
     public function registerPage(){
         return view('register');
     }

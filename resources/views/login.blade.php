@@ -1,5 +1,5 @@
 <x-layout title="Login">
-    <div class="relative min-h-screen flex items-center justify-center px-4 py-10 overflow-hidden">
+    <div class="relative min-h-screen flex items-center justify-center overflow-hidden">
 
         {{-- ambient chocolate chip dots --}}
         <div class="pointer-events-none absolute inset-0 overflow-hidden">
