@@ -46,4 +46,8 @@ class PagesController extends Controller
     public function createProductPage(){
         return view('dashboard.stocker.create');
     }
+
+    public function cupPage(){
+        return view();
+    }
 }

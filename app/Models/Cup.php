@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\CupDetail;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
@@ -17,4 +19,7 @@ class Cup extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
     
+    public function details(){
+        return $this->hasMany(CupDetail::class, 'cup_id');
+    }
 }
