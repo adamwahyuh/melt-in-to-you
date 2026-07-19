@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Cup\StoreRequest;
 use App\Models\Cup;
 use App\Models\CupDetail;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

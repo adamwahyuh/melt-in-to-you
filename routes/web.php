@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CupController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,11 @@ Route::prefix('cup')->group(function(){
     Route::post('/', [CupController::class, 'storeToCup'])->name('post.cup.store_to_cup');
     Route::post('/{detail}', [CupController::class, 'subtractOneFromCup'])->name('post.cup.subtract_one_from_cup');
     Route::delete('/{detail}', [CupController::class, 'deleteCupDetail'])->name('delete.cup.delete_cup_detail');
+});
+
+Route::prefix('/order')->group(function(){
+    Route::get('/', [PagesController::class, 'orderPage'])->name('page.order.index');
+    Route::post('/', [OrderController::class, 'transferCupToOrder'])->name('post.order.transfer_cup_to_order');
 });
 
 Route::prefix('/>_<')->middleware(['can:kasir', 'can:owner', 'can:stocker'])->group(function(){

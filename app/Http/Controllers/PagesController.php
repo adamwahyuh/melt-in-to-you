@@ -48,6 +48,10 @@ class PagesController extends Controller
     }
 
     public function cupPage(){
-        return view();
+        return view('cup.index');
+    }
+
+    public function orderPage(){
+        return view('order.index');
     }
 }
