@@ -8,7 +8,8 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', [PagesController::class, 'index'])->name('index');
+Route::get('/', function(){return "Index";})->name('index');
+Route::get('/menu', [PagesController::class, 'index'])->name('page.menu');
 
 Route::get('/login', [PagesController::class, 'loginPage'])->middleware('guest')->name('page.login');
 Route::post('/login', [AuthController::class, 'login'])->middleware('guest')->name('post.login');
@@ -17,10 +18,13 @@ Route::post('/register', [AuthController::class, 'resgister'])->middleware('gues
 Route::post('/logut', [AuthController::class, 'logout'])->middleware('auth')->name('post.logout');
 
 Route::prefix('cup')->group(function(){
+    
+    Route::post('/{detail}/kurang', [CupController::class, 'subtractOneFromCup'])->name('post.cup.subtract_one_from_cup');
+    Route::post('/{detail}/tambah', [CupController::class, 'increaseOneToCup'])->name('post.cup.increase_one_to_cup');
+    
+    Route::delete('/{detail}', [CupController::class, 'deleteCupDetail'])->name('delete.cup.delete_cup_detail');
     Route::get('/', [PagesController::class, 'cupPage'])->name('page.cup.index');
     Route::post('/', [CupController::class, 'storeToCup'])->name('post.cup.store_to_cup');
-    Route::post('/{detail}', [CupController::class, 'subtractOneFromCup'])->name('post.cup.subtract_one_from_cup');
-    Route::delete('/{detail}', [CupController::class, 'deleteCupDetail'])->name('delete.cup.delete_cup_detail');
 });
 
 Route::prefix('/order')->group(function(){

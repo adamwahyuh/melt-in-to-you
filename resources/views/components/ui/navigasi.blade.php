@@ -4,7 +4,7 @@
             
             <!-- Kiri: Logo dan Nama Aplikasi -->
             <a href="/" class="flex items-center gap-3 transition-transform hover:scale-105 duration-300">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo {{ config('app.name') }}" class="h-9 w-auto object-contain drop-shadow-md">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo {{ config('app.name') }}" class="h-14 w-auto object-contain drop-shadow-md">
                 <span class="font-bold text-xl text-amber-100 tracking-wide hidden sm:block">
                     {{ config('app.name', 'Coffee App') }}
                 </span>
@@ -14,7 +14,7 @@
             <div class="flex items-center gap-4 sm:gap-6">
                 @auth
                     <!-- Keranjang / Cups -->
-                    <a href="/cups" class="relative text-amber-300 hover:text-amber-100 transition-colors p-1" title="Keranjang Cups">
+                    <a href="{{ route('page.cup.index') }}" class="relative text-amber-300 hover:text-amber-100 transition-colors p-1" title="Keranjang Cups">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>

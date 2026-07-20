@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
@@ -14,7 +16,7 @@ class PagesController extends Controller
 
     public function index(){
         $products = Product::with('prices')->get();
-        return view('welcome', compact('products'));
+        return view('menu', compact('products'));
     }
     public function registerPage(){
         return view('register');
@@ -48,7 +50,12 @@ class PagesController extends Controller
     }
 
     public function cupPage(){
-        return view('cup.index');
+        $userLoggedId = Auth::id();
+        $user = User::with('cup.details')->where('id', $userLoggedId)->first();
+
+        $cup = $user->cup;
+        $cupDetails = $user->cup->details;
+        return view('cup.index', compact('cupDetails', 'cup'));
     }
 
     public function orderPage(){

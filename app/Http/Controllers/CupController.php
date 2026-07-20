@@ -35,13 +35,18 @@ class CupController extends Controller
         return back()->with('success', 'Ice cream behasil dimasukan ke dalam cup');
     }
 
+    public function increaseOneToCup(CupDetail $detail){
+        $detail->increment('quantity');
+
+        return back()->with('success', 'Ice Cream berhasil ditambahkan')->withFragment($detail->id);
+    }
     public function subtractOneFromCup(CupDetail $detail){
         if ($detail->quantity > 1){
             $detail->decrement('quantity');
         } else {
             $detail->delete();
         }
-        return back()->with('success', 'Ice Cream berhasil dikurangkan');
+        return back()->with('success', 'Ice Cream berhasil dikurangkan')->withFragment($detail->id);
     }
 
     public function deleteCupDetail(CupDetail $detail){

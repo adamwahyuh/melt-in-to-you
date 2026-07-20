@@ -72,17 +72,55 @@
 
                             <div class="mt-4">
                                 @auth
-                                    <button
-                                        @click="addToCup('{{ $product->id }}', $el)"
-                                        class="w-full bg-[#4A2C2A] hover:bg-[#3A211F] text-white font-semibold py-2.5 px-4 rounded-xl transition-all duration-200 active:scale-95 flex items-center justify-center gap-2"
-                                    >
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                        </svg>
-                                        Tambahkan ke Cups
-                                    </button>
+                                    <!-- Tambahkan x-data="{ qty: 1 }" untuk mengatur state jumlah -->
+                                    <form action="{{ route('post.cup.store_to_cup') }}" method="POST" x-data="{ qty: 1 }" class="flex flex-col gap-3">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                                        <!-- Kontrol Plus Minus -->
+                                        <div class="flex items-center justify-between border border-[#F3D9B1] rounded-xl overflow-hidden bg-[#FFF9F2]">
+                                            <!-- Tombol Minus -->
+                                            <button 
+                                                type="button" 
+                                                @click="if(qty > 1) qty--" 
+                                                class="w-10 h-10 flex items-center justify-center text-[#8B5A4A] hover:bg-[#F3D9B1] hover:text-[#4A2C2A] transition-colors duration-200 font-bold text-xl"
+                                            >
+                                                &minus;
+                                            </button>
+                                            
+                                            <!-- Input Quantity (Readonly agar user pakai tombol +/- saja, atau hapus readonly jika mau bisa diketik) -->
+                                            <input 
+                                                type="number" 
+                                                name="quantity" 
+                                                x-model="qty" 
+                                                min="1" 
+                                                class="w-12 text-center border-none focus:ring-0 text-[#4A2C2A] font-bold bg-transparent p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+                                                readonly
+                                            >
+
+                                            <!-- Tombol Plus -->
+                                            <button 
+                                                type="button" 
+                                                @click="qty++" 
+                                                class="w-10 h-10 flex items-center justify-center text-[#8B5A4A] hover:bg-[#F3D9B1] hover:text-[#4A2C2A] transition-colors duration-200 font-bold text-xl"
+                                            >
+                                                &plus;
+                                            </button>
+                                        </div>
+
+                                        <!-- Tombol Submit -->
+                                        <button 
+                                            type="submit" 
+                                            class="w-full flex items-center justify-center gap-2 bg-[#8B5A4A] hover:bg-[#6A4135] text-white font-semibold py-2.5 px-4 rounded-xl transition shadow-md hover:shadow-lg active:scale-95"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            </svg>
+                                            Tambah ke Cup
+                                        </button>
+                                    </form>
                                 @else
-                                    <a href="/login" class="block text-center w-full bg-[#D2A679] hover:bg-[#C19660] text-white font-semibold py-2.5 px-4 rounded-xl transition">
+                                    <a href="/login" class="block text-center w-full bg-[#D2A679] hover:bg-[#C19660] text-white font-semibold py-2.5 px-4 rounded-xl transition shadow-sm hover:shadow-md">
                                         Masuk untuk Memesan
                                     </a>
                                 @endauth
