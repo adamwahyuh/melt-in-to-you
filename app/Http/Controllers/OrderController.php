@@ -32,4 +32,26 @@ class OrderController extends Controller
 
         return back()->with('success', 'Produk di Order');
     }
+
+    public function menandaiDiproses(Order $order){
+        $order = $order->update(['diproses_pada' => now()]); 
+        return back()->with('success', 'Order ditandai sedang diproses');
+    }
+    
+    public function menandaiDikirim(Order $order){
+        $order = $order->update(['dikirim_pada' => now()]);
+        return back()->with('success', 'Order ditandai sedang dikirim');
+    }
+
+    public function menandaiSelesai(Order $order){
+        $userLoggedId = Auth::id();
+        
+        if (!$order->dikirim_pada || !$order->diproses_pada || !$order->dipesan_pada) return back()->with('error', 'Tidak bisa melakukan ini');
+
+        if($userLoggedId != $order->user_id) return back()->with('error', 'Tidak bisa melakukan ini');
+
+        $order = $order->update(['diterima_pada' => now()]);
+        return back()->with('success', 'Order telah selesai');
+    }
+    
 }

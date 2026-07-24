@@ -30,6 +30,8 @@ Route::prefix('cup')->group(function(){
 Route::prefix('/order')->group(function(){
     Route::get('/', [PagesController::class, 'orderPage'])->name('page.order.index');
     Route::post('/', [OrderController::class, 'transferCupToOrder'])->name('post.order.transfer_cup_to_order');
+    Route::put('/{order}/menandai_selesai', [OrderController::class, 'menandaiSelesai'])->name('put.order.tandai_selesai');
+    Route::get('/{order}', [PagesController::class, 'orderDetailPage'])->name('page.order.show');
 });
 
 Route::prefix('/>_<')->middleware(['can:kasir', 'can:owner', 'can:stocker'])->group(function(){
@@ -37,11 +39,15 @@ Route::prefix('/>_<')->middleware(['can:kasir', 'can:owner', 'can:stocker'])->gr
 
     Route::prefix('/kasir')->middleware('can:kasir')->group(function(){
         Route::get('/', [PagesController::class, 'kasirIndexPage'])->name('page.dashboard.kasir.index');
+
+        Route::prefix('/order')->group(function(){
+            Route::put('/{order}/menandai_diproses', [OrderController::class, 'menandaiDiproses'])->name('put.dashboard.kasir.order.tandai_diproses');
+            Route::put('/{order}/menandai_dikirim', [OrderController::class, 'menandaiDikirim'])->name('put.dashboard.kasir.order.tandai_dikirim');
+        });
     });
 
     Route::prefix('/stocker')->middleware('can:stocker')->group(function(){
         Route::get('/', [PagesController::class, 'stockerIndexPage'])->name('page.dashboard.stocker.index');
-        
         Route::get('/tambah_menu', [PagesController::class, 'createProductPage'])->name('page.product.create');
 
         Route::post('/tambah_menu', [ProductController::class, 'store'])->name('post.product.store');
