@@ -15,7 +15,10 @@ class OrderController extends Controller
         
         if(!$user->cup || $user->cup->details->isEmpty()) return back('error', 'Tidak ada produk di dalam cup');
 
-        $order = Order::firstOrCreate(['user_id', $user->id, 'dipesan_pada' => now()]);
+        $order = $user->orders()->create([
+            'user_id', $user->id, 
+            'dipesan_pada' => now()
+        ]);
         
         foreach($user->cup->details as $detail) {
             $order->details()->create([

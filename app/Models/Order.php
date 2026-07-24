@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-#[Fillable(['dikirim_pada', 'dipesan_pada', 'diproses_pada', 'diterima_pada', 'user_id'])]
+#[Guarded(['id'])]
 class Order extends Model
 {
     //

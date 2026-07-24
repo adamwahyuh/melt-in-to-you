@@ -8,7 +8,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function(){return "Index";})->name('index');
+Route::get('/', function(){return "Index";})->name('page.home');
 Route::get('/menu', [PagesController::class, 'index'])->name('page.menu');
 
 Route::get('/login', [PagesController::class, 'loginPage'])->middleware('guest')->name('page.login');

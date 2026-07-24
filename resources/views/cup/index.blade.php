@@ -1,4 +1,4 @@
-<x-layout title="Cup Es Krim Kamu">
+<x-layout title="Cup">
     <div class="min-h-screen bg-[#FFF9F2] py-10 md:py-16">
         <div class="container mx-auto px-4 max-w-4xl">
             
