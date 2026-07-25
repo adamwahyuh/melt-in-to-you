@@ -28,7 +28,7 @@ class PagesController extends Controller
     }
 
     public function kasirIndexPage(){
-        $orders = Order::with(['details.product', 'user'])->orderBy('created_at', 'DESC')->whereNull('diterima_pada')->get();
+        $orders = Order::with(['details.product', 'user'])->orderBy('created_at', 'DESC')->get();
         $todayOrders = Order::with(['details.product', 'user'])->today()->get();
         $todayEarnings = Order::today()->whereNotNull('diproses_pada')->whereNotNull('dikirim_pada')
                                 ->get()->sum('total_harga');
