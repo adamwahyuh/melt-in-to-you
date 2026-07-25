@@ -22,7 +22,7 @@ class AuthController extends Controller
 
             if($user->peran()->exists()) return redirect()->route('page.dashboard.index');
             
-            return redirect()->route('index');
+            return redirect()->route('page.home');
         }
 
         return back();

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,5 +35,9 @@ class Order extends Model
         if($this->diproses_pada) return 'Diproses';
 
         return 'Dipesan';
+    }
+
+    public function scopeToday(): Builder{
+        return $this->whereDate('created_at', today());
     }
 }

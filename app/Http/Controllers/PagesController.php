@@ -28,7 +28,14 @@ class PagesController extends Controller
     }
 
     public function kasirIndexPage(){
-        return view('dashboard.kasir.index');
+        $orders = Order::with(['details.product', 'user'])->orderBy('created_at', 'DESC')->whereNull('diterima_pada')->get();
+        $todayOrders = Order::with(['details.product', 'user'])->today()->get();
+        $todayEarnings = Order::today()->whereNotNull('diproses_pada')->whereNotNull('dikirim_pada')
+                                ->get()->sum('total_harga');
+        
+        $todayCustomers = Order::today()->distinct('user_id')->count();
+
+        return view('dashboard.kasir.index', compact('orders', 'todayOrders', 'todayEarnings', 'todayCustomers'));
     }
     public function stockerIndexPage(){
         $products = Product::with('prices')->get();
@@ -62,11 +69,12 @@ class PagesController extends Controller
     public function orderPage(){
         $userLoggedId = Auth::id();
         $user = User::with('orders.details.product')->where('id', $userLoggedId)->first();
-        $orders = $user->orders;
+        $orders = $user->orders ?? [];
         return view('order.index', compact('orders'));
     }
 
     public function orderDetailPage(Order $order){
-        return view('order.show');
+        $order->load('details.product');
+        return view('order.show', compact('order'));
     }
 }
