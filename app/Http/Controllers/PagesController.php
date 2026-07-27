@@ -43,8 +43,31 @@ class PagesController extends Controller
 
         return view('dashboard.stocker.index', compact('products'));
     }
-    public function ownerIndexPage(){
-        return view('dashboard.owner.index');
+    public function ownerIndexPage(Request $request){
+        $filter = $request->input('filter', 'semua');
+
+        $ordersDone = Order::selesai()
+            ->when($filter === 'harian', function ($query) {
+                $query->whereDate('dipesan_pada', today());
+            })
+            ->when($filter === 'mingguan', function ($query) {
+                $query->whereBetween('dipesan_pada', [
+                    now()->startOfWeek(),
+                    now()->endOfWeek(),
+                ]);
+            })
+            ->when($filter === 'bulanan', function ($query) {
+                $query->whereMonth('dipesan_pada', now()->month)
+                    ->whereYear('dipesan_pada', now()->year);
+            })
+            ->get();
+
+            $totalHargaPenjualan = $ordersDone->sum('totalHarga');
+            $totalProdukTerjual = $ordersDone->count();
+            $totalPembeliUnik = $ordersDone->pluck('user_id')->unique()->count();
+
+            
+        return view('dashboard.owner.index', compact('filter', 'ordersDone', 'totalHargaPenjualan', 'totalProdukTerjual', 'totalPembeliUnik'));
     }
 
     public function editProductPage(Product $product){
@@ -62,7 +85,7 @@ class PagesController extends Controller
         $user = User::with('cup.details')->where('id', $userLoggedId)->first();
 
         $cup = $user->cup;
-        $cupDetails = $user->cup->details;
+        $cupDetails = $user->cup->details ?? [];
         return view('cup.index', compact('cupDetails', 'cup'));
     }
 
