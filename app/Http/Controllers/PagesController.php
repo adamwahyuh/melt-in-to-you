@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -99,5 +100,15 @@ class PagesController extends Controller
     public function orderDetailPage(Order $order){
         $order->load('details.product');
         return view('order.show', compact('order'));
+    }
+
+    public function pageCreateAddress(User $user){
+        if($user->addresses) return redirect()->route('page.home');
+        if(Auth::user()->username !== $user->username) return redirect()->route('page.address.create', Auth::user()->username);
+        return view('create-alamat', compact('user'));
+    }
+
+    public function pageEditAddress(Address $address){
+        return view('edit-alamat', compact('address'));
     }
 }

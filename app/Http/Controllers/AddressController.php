@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class AddressController extends Controller
 {
     //
-    public function createAddress(User $user, CreateRequest $request){
+    public function storeAddress(User $user, CreateRequest $request){
         $data = $request->validated();
 
         $address = $user->addresses()->create([
