@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CupController;
 use App\Http\Controllers\OrderController;
@@ -8,7 +9,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function(){return "Index";})->name('page.home');
+Route::get('/', function(){return view('welcome');})->name('page.home');
 Route::get('/menu', [PagesController::class, 'index'])->name('page.menu');
 
 Route::get('/login', [PagesController::class, 'loginPage'])->middleware('guest')->name('page.login');
@@ -16,6 +17,15 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('guest')->na
 Route::get('/register', [PagesController::class, 'registerPage'])->middleware('guest')->name('page.register');
 Route::post('/register', [AuthController::class, 'resgister'])->middleware('guest')->name('post.register');
 Route::post('/logut', [AuthController::class, 'logout'])->middleware('auth')->name('post.logout');
+
+Route::prefix('/alamat')->group(function(){
+    Route::get('/', [PagesController::class, 'pageCreateAddress'])->name('page.address.create');
+    Route::delete('/{user}/{address}', [AddressController::class, 'deleteAddress'])->name('delete.address');
+    Route::put('/{address}/is_active', [AddressController::class, 'changeActiveAddress'])->name('put.address.change_active_address');
+    Route::post('/{user}', [AddressController::class, 'storeAddress'])->name('post.address.store');
+    Route::put('/{address}', [AddressController::class, 'updateAddress'])->name('put.address.update');
+
+});
 
 Route::prefix('cup')->group(function(){
     

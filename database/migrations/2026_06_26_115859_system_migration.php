@@ -14,6 +14,23 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('addresses', function(Blueprint $table){
+            $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->unsignedSmallInteger('rt');
+            $table->unsignedSmallInteger('rw');
+            $table->string('kota');
+            $table->string('kecamatan');
+            $table->string('kelurahan');
+            $table->string('alamat');
+            $table->string('kode_pos');
+
+            $table->boolean('is_active')->default(false);
+
+            $table->timestamps();
+
+            // rt rw kecamatan kota alamat kelurahan kode pos
+        });
         Schema::create('peran', function(Blueprint $table){
             $table->id();
             $table->string('name');
