@@ -20,6 +20,8 @@ class AuthController extends Controller
             $user = Auth::id();
             $user = User::where('id', $user)->first();
 
+            if($user->addresses->isEmpty()) return redirect()->route('page.address.create', $user->username);
+
             if($user->peran()->exists()) return redirect()->route('page.dashboard.index');
             
             return redirect()->route('page.home');

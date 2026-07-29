@@ -6,6 +6,7 @@ use App\Http\Requests\Address\CreateRequest;
 use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
 {
@@ -13,6 +14,9 @@ class AddressController extends Controller
     public function storeAddress(User $user, CreateRequest $request){
         $data = $request->validated();
 
+        $haveIsActiveAddress = Address::where('user_id', Auth::id())->where('is_active', true)->exists();
+
+        $is_active = $haveIsActiveAddress ? true : false;
         $address = $user->addresses()->create([
             'rt' => $data['rt'],
             'rw' => $data['rw'],
@@ -22,7 +26,7 @@ class AddressController extends Controller
             'alamat' => $data['alamat'],
             'kode_pos' => $data['kode_pos'],
 
-            'is_active' => true,
+            'is_active' => $is_active,
         ]);
 
         return redirect()->route('page.home')->with('success', 'Welcome to ' . config('app.name'));

@@ -18,12 +18,15 @@ Route::get('/register', [PagesController::class, 'registerPage'])->middleware('g
 Route::post('/register', [AuthController::class, 'resgister'])->middleware('guest')->name('post.register');
 Route::post('/logut', [AuthController::class, 'logout'])->middleware('auth')->name('post.logout');
 
+Route::get('/myprofile', [PagesController::class, 'myProfile'])->name('page.myprofile');
+
+
+
 Route::prefix('/alamat')->middleware('auth')->group(function(){
     Route::delete('/{user}/{address}', [AddressController::class, 'deleteAddress'])->name('delete.address');
     Route::put('/{address}/is_active', [AddressController::class, 'changeActiveAddress'])->name('put.address.change_active_address');
     Route::get('/{address}/edit', [PagesController::class, 'pageEditAddress'])->name('page.address.edit');
     Route::get('/{user:username}', [PagesController::class, 'pageCreateAddress'])->name('page.address.create');
-    
     
     Route::post('/{user}', [AddressController::class, 'storeAddress'])->name('post.address.store');
     Route::put('/{address}', [AddressController::class, 'updateAddress'])->name('put.address.update');

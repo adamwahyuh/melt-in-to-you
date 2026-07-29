@@ -11,7 +11,8 @@
 
             <!-- Form Section -->
             <div class="p-6 sm:p-8">
-                <form action="{{ route('post.address.store', Auth::id()) }}" method="POST" class="space-y-6">
+                <form action="{{ route('put.address.update', Auth::id()) }}" method="POST" class="space-y-6">
+                    @method('PUT')
                     @csrf
                     <!-- Grid untuk field pendek (RT & RW) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">

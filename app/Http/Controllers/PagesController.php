@@ -103,12 +103,20 @@ class PagesController extends Controller
     }
 
     public function pageCreateAddress(User $user){
-        if($user->addresses) return redirect()->route('page.home');
         if(Auth::user()->username !== $user->username) return redirect()->route('page.address.create', Auth::user()->username);
         return view('create-alamat', compact('user'));
     }
 
     public function pageEditAddress(Address $address){
+        if($address->user_id !== Auth::id()) return redirect()->route('page.home');
         return view('edit-alamat', compact('address'));
+    }
+
+    public function myProfile(){
+        if(!Auth::check()) return abort(404);
+        $userLoggedId = Auth::id();
+        $user = User::with('addresses')->where('id', $userLoggedId)->first();
+
+        return view('myprofile', compact('user'));
     }
 }
