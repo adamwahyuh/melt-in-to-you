@@ -1,7 +1,26 @@
 # 🍨 Melt In To You
 
-Melt In To You merupakan aplikasi pemesanan es krim berbasis web yang dibangun menggunakan Laravel. Aplikasi ini menyediakan sistem pemesanan online bagi pelanggan sekaligus dashboard operasional untuk Owner, Kasir, dan Stocker sehingga seluruh proses bisnis mulai dari pengelolaan produk hingga laporan penjualan dapat dilakukan dalam satu sistem. :contentReference[oaicite:0]{index=0}
+Melt In To You merupakan aplikasi pemesanan es krim berbasis web yang dibangun menggunakan Laravel. Aplikasi ini menyediakan sistem pemesanan online bagi pelanggan sekaligus dashboard operasional untuk Owner, Kasir, dan Stocker sehingga seluruh proses bisnis mulai dari pengelolaan produk hingga laporan penjualan dapat dilakukan dalam satu sistem.
 
+---
+# Install
+Clone repository
+
+```bash
+git clone https://github.com/adamwahyuh/melt-in-to-you.git
+cd melt-in-to-you
+```
+
+
+Izinkan Script install
+```bash
+chmod +x install.sh
+```
+
+Jalankan install
+```bash
+./install.sh
+```
 ---
 
 # 📖 Daftar Isi
@@ -274,26 +293,6 @@ Laporan Penjualan
    └── Total Produk Terjual
 ```
 
----
-
-# Install
-Clone repository
-
-```bash
-git clone https://github.com/adamwahyuh/melt-in-to-you.git
-cd melt-in-to-you
-```
-
-
-Izinkan Script install
-```bash
-chmod +x install.sh
-```
-
-Jalankan install
-```bash
-./install.sh
-```
 ---
 
 # Kelompok

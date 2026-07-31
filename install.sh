@@ -42,3 +42,6 @@ php artisan test
 echo "=========================="
 echo "Application Ready"
 echo "=========================="
+echo "Running Server"
+echo "=========================="
+php artisan serve
