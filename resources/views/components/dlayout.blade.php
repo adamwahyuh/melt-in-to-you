@@ -38,6 +38,8 @@ $menus = [
     <title>{{ $title }}</title>
 </head>
 <body class="bg-slate-50 font-sans text-slate-900 antialiased">
+    <x-flash-msg />
+
     <div class="flex h-screen overflow-hidden">
         <aside class="w-64 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col transition-all duration-300">
             <div class="h-16 flex items-center px-6 border-b border-slate-200">

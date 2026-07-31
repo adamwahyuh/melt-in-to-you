@@ -35,7 +35,6 @@ class User extends Authenticatable
 
     public function peran(){
         return $this->belongsToMany(Peran::class, 'peran_users', 'user_id', 'peran_id')
-                ->withPivot(['name'])
                 ->withTimestamps();
     }
 
