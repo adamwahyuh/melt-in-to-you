@@ -13,6 +13,8 @@
     <title>{{ $title }}</title>
 </head>
 <body class="bg-gradient-to-br from-black to-[#9b5000] min-h-screen text-amber-50 font-sans">
+    <x-flash-msg />
+    
     <x-ui.navigasi />
 
     <!-- Konten Halaman -->

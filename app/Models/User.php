@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Address;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -34,8 +35,13 @@ class User extends Authenticatable
 
     public function peran(){
         return $this->belongsToMany(Peran::class, 'peran_users', 'user_id', 'peran_id')
-                ->withPivot(['name'])
                 ->withTimestamps();
+    }
+
+    public function activeAddress()
+    {
+        return $this->hasOne(Address::class, 'user_id')
+                    ->where('is_active', true);
     }
 
     public function cup(){
@@ -58,5 +64,9 @@ class User extends Authenticatable
         $last = substr(end($words), 0, 1);
 
         return strtoupper($first . $last);
+    }
+
+    public function addresses(){
+        return $this->hasMany(Address::class, 'user_id');
     }
 }

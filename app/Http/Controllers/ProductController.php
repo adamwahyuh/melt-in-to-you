@@ -43,26 +43,27 @@ class ProductController extends Controller
         return back()->with('success', 'Berhasil update harga');
     }
 
-    public function updateProduct(Product $product, UpdateRequest $request){
+    public function updateProduct(Product $product, UpdateRequest $request)
+    {
         $data = $request->validated();
 
-        $fotoPath = $product->foto;
+        $updateData = [
+            'name' => $data['name'],
+            'deskripsi' => $data['deskripsi'],
+            'foto' => $product->foto,
+        ];
 
-        if($request->hasFile('foto')){
-            if($product->foto && Storage::disk('public')->exists($product->foto)){
+        if ($request->hasFile('foto')) {
+            if ($product->foto && Storage::disk('public')->exists($product->foto)) {
                 Storage::disk('public')->delete($product->foto);
             }
 
-            $fotoPath = $request->file('foto')->store('product', 'public');
+            $updateData['foto'] = $request->file('foto')->store('product', 'public');
+            $updateData['is_default'] = false;
         }
 
-        $product->update([
-            'name'      => $data['name'],
-            'deskripsi' => $data['deskripsi'],
-            'foto'      => $fotoPath, 
-            'is_default'=> false,
-        ]);
+        $product->update($updateData);
 
-        return back()->with('success', 'Berhasil update product' );
+        return back()->with('success', 'Berhasil update product');
     }
 }

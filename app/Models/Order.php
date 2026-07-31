@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     //
-    use HasUlids, SoftDeletes;
+    use HasUlids, SoftDeletes, HasFactory;
     protected $table = 'orders';
 
     public function user(){
@@ -29,6 +30,10 @@ class Order extends Model
         return $this->details->sum('sub_total');
     }
 
+    public function address(){
+        return $this->belongsTo(Address::class, 'address_id');
+    }
+
     public function getStatusAttribute(): string{
         if($this->diterima_pada) return 'Selesai';
         if($this->dikirim_pada) return 'Sedang dikirim';
@@ -39,5 +44,9 @@ class Order extends Model
 
     public function scopeToday(): Builder{
         return $this->whereDate('created_at', today());
+    }
+
+    public function scopeSelesai(): Builder{
+        return $this->whereNotNull('diterima_pada');
     }
 }

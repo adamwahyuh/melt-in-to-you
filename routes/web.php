@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CupController;
 use App\Http\Controllers\OrderController;
@@ -8,16 +9,29 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function(){return "Index";})->name('page.home');
-Route::get('/menu', [PagesController::class, 'index'])->name('page.menu');
+Route::get('/', function(){return view('welcome');})->name('page.home');
+Route::get('/menu', [PagesController::class, 'index'])->middleware('redirect-if-no-address')->name('page.menu');
 
-Route::get('/login', [PagesController::class, 'loginPage'])->middleware('guest')->name('page.login');
+Route::get('/login', [PagesController::class, 'loginPage'])->middleware('guest')->name('login');
 Route::post('/login', [AuthController::class, 'login'])->middleware('guest')->name('post.login');
 Route::get('/register', [PagesController::class, 'registerPage'])->middleware('guest')->name('page.register');
 Route::post('/register', [AuthController::class, 'resgister'])->middleware('guest')->name('post.register');
 Route::post('/logut', [AuthController::class, 'logout'])->middleware('auth')->name('post.logout');
 
-Route::prefix('cup')->group(function(){
+Route::get('/myprofile', [PagesController::class, 'myProfile'])->middleware('redirect-if-no-address')->name('page.myprofile');
+
+Route::prefix('/alamat')->middleware('auth')->group(function(){
+    Route::delete('/{user}/{address}', [AddressController::class, 'deleteAddress'])->name('delete.address');
+    Route::put('/{address}/is_active', [AddressController::class, 'changeActiveAddress'])->name('put.address.change_active_address');
+    Route::get('/{address}/edit', [PagesController::class, 'pageEditAddress'])->name('page.address.edit');
+    Route::get('/{user:username}', [PagesController::class, 'pageCreateAddress'])->name('page.address.create');
+    
+    Route::post('/{user}', [AddressController::class, 'storeAddress'])->name('post.address.store');
+    Route::put('/{address}', [AddressController::class, 'updateAddress'])->name('put.address.update');
+
+});
+
+Route::prefix('cup')->middleware('redirect-if-no-address')->group(function(){
     
     Route::post('/{detail}/kurang', [CupController::class, 'subtractOneFromCup'])->name('post.cup.subtract_one_from_cup');
     Route::post('/{detail}/tambah', [CupController::class, 'increaseOneToCup'])->name('post.cup.increase_one_to_cup');
@@ -27,7 +41,7 @@ Route::prefix('cup')->group(function(){
     Route::post('/', [CupController::class, 'storeToCup'])->name('post.cup.store_to_cup');
 });
 
-Route::prefix('/order')->group(function(){
+Route::prefix('/order')->middleware('redirect-if-no-address')->group(function(){
     Route::get('/', [PagesController::class, 'orderPage'])->name('page.order.index');
     Route::post('/', [OrderController::class, 'transferCupToOrder'])->name('post.order.transfer_cup_to_order');
     Route::put('/{order}/menandai_selesai', [OrderController::class, 'menandaiSelesai'])->name('put.order.tandai_selesai');
