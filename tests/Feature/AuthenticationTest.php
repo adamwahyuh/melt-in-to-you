@@ -35,7 +35,7 @@ class AuthenticationTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertRedirect(route('page.address.create', $user->username));
+        $response->assertRedirect(route('page.home'));
     }
 
     public function test_user_logout(){

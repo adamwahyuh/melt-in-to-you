@@ -1,58 +1,303 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🍨 Melt In To You
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Melt In To You merupakan aplikasi pemesanan es krim berbasis web yang dibangun menggunakan Laravel. Aplikasi ini menyediakan sistem pemesanan online bagi pelanggan sekaligus dashboard operasional untuk Owner, Kasir, dan Stocker sehingga seluruh proses bisnis mulai dari pengelolaan produk hingga laporan penjualan dapat dilakukan dalam satu sistem. :contentReference[oaicite:0]{index=0}
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# 📖 Daftar Isi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Tentang Aplikasi
+- Fitur
+- Teknologi
+- Role Pengguna
+- Alur Kerja
+- Instalasi
+- Struktur Project
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+# 📌 Tentang Aplikasi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Melt In To You merupakan sistem informasi pemesanan es krim yang memiliki empat jenis pengguna, yaitu:
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Pelanggan
+- Kasir
+- Stocker
+- Owner
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Setiap pengguna memiliki hak akses yang berbeda sehingga keamanan dan operasional aplikasi lebih terstruktur menggunakan sistem Role Based Access Control (RBAC). :contentReference[oaicite:1]{index=1}
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+# ✨ Fitur
 
-```bash
-composer require laravel/boost --dev
+## 👤 Autentikasi
 
-php artisan boost:install
+- Login
+- Register
+- Logout
+- Validasi Form
+- Redirect berdasarkan role
+- Redirect apabila pelanggan belum memiliki alamat
+
+---
+
+## 🏠 Manajemen Alamat
+
+Pelanggan dapat:
+
+- Menambahkan alamat
+- Mengubah alamat
+- Menghapus alamat
+- Mengatur alamat utama
+
+---
+
+## 🍦 Produk
+
+Pelanggan dapat:
+
+- Melihat daftar produk
+- Melihat harga terbaru
+- Melihat foto produk
+- Melihat deskripsi produk
+
+Stocker dapat:
+
+- Menambah produk
+- Mengubah produk
+- Mengubah harga produk
+- Menghapus produk
+
+---
+
+## 🛒 Cup (Keranjang)
+
+Pelanggan dapat:
+
+- Menambahkan produk ke Cup
+- Menambah jumlah produk
+- Mengurangi jumlah produk
+- Menghapus produk dari Cup
+- Melihat total harga Cup
+
+---
+
+## 📦 Order
+
+Pelanggan dapat:
+
+- Checkout Cup
+- Membuat pesanan
+- Melihat riwayat pesanan
+- Melihat detail pesanan
+- Menandai pesanan telah diterima
+
+Kasir dapat:
+
+- Melihat seluruh pesanan
+- Menandai pesanan sedang diproses
+- Menandai pesanan sedang dikirim
+
+---
+
+## 📊 Dashboard
+
+### Dashboard Kasir
+
+Menampilkan:
+
+- Seluruh pesanan
+- Pesanan hari ini
+- Pendapatan hari ini
+- Jumlah pelanggan hari ini
+
+### Dashboard Owner
+
+Menampilkan laporan:
+
+- Total penjualan
+- Total produk terjual
+- Total pelanggan
+- Filter harian
+- Filter mingguan
+- Filter bulanan
+
+---
+
+# 👥 Role Pengguna
+
+## 1. Pelanggan
+
+Hak akses:
+
+- Registrasi akun
+- Login
+- Mengelola alamat
+- Melihat produk
+- Menambahkan produk ke Cup
+- Checkout
+- Melihat riwayat pesanan
+- Menyelesaikan pesanan
+
+---
+
+## 2. Stocker
+
+Hak akses:
+
+- Melihat produk
+- Menambah produk
+- Mengubah produk
+- Mengubah harga
+- Menghapus produk
+
+---
+
+## 3. Kasir
+
+Hak akses:
+
+- Melihat seluruh order
+- Mengubah status order
+- Melihat statistik harian
+
+---
+
+## 4. Owner
+
+Hak akses:
+
+- Melihat laporan penjualan
+- Melihat total pendapatan
+- Melihat jumlah pembeli
+- Melihat produk terjual
+- Filter laporan berdasarkan periode
+
+---
+
+#  Alur Kerja Sistem
+
+## Pelanggan
+
+```text
+Register
+    │
+    ▼
+Login
+    │
+    ▼
+Tambah Alamat
+    │
+    ▼
+Pilih Produk
+    │
+    ▼
+Masukkan ke Cup
+    │
+    ▼
+Checkout
+    │
+    ▼
+Order Dibuat
+    │
+    ▼
+Kasir Memproses
+    │
+    ▼
+Kasir Mengirim
+    │
+    ▼
+Pesanan Diterima
+    │
+    ▼
+Selesai
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Stocker
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```text
+Login
+   │
+   ▼
+Dashboard
+   │
+   ├── Tambah Produk
+   ├── Edit Produk
+   ├── Update Harga
+   └── Hapus Produk
+```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Kasir
 
-## Security Vulnerabilities
+```text
+Login
+   │
+   ▼
+Dashboard
+   │
+   ▼
+Melihat Order
+   │
+   ▼
+Diproses
+   │
+   ▼
+Dikirim
+   │
+   ▼
+Menunggu Konfirmasi Pelanggan
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## Owner
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```text
+Login
+   │
+   ▼
+Dashboard
+   │
+   ▼
+Laporan Penjualan
+   │
+   ├── Harian
+   ├── Mingguan
+   ├── Bulanan
+   ├── Total Penjualan
+   ├── Total Pembeli
+   └── Total Produk Terjual
+```
+
+---
+
+# Install
+Clone repository
+
+```bash
+git clone https://github.com/adamwahyuh/melt-in-to-you.git
+cd melt-in-to-you
+```
+
+
+Izinkan Script install
+```bash
+chmod +x install.sh
+```
+
+Jalankan install
+```bash
+./install.sh
+```
+---
+
+# Kelompok
+
+1. Adam : Ngoding Aplikasi 
+2. Ken : Membuat Dokumentasi, 
+3. Aristo : Membuat Dokumentasi
