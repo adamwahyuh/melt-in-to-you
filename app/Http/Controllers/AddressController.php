@@ -16,7 +16,8 @@ class AddressController extends Controller
 
         $haveIsActiveAddress = Address::where('user_id', Auth::id())->where('is_active', true)->exists();
 
-        $is_active = $haveIsActiveAddress ? true : false;
+        $is_active = $haveIsActiveAddress ? false : true;
+        
         $address = $user->addresses()->create([
             'rt' => $data['rt'],
             'rw' => $data['rw'],

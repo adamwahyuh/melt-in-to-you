@@ -66,7 +66,7 @@
                     </div>
                 @else
                     <!-- Tombol Login -->
-                    <a href="{{ route('post.login') }}" class="flex items-center gap-2 text-sm font-bold text-stone-900 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 px-6 py-2.5 rounded-full transition-all duration-300 shadow-[0_4px_15px_rgba(251,191,36,0.15)] hover:shadow-[0_4px_25px_rgba(251,191,36,0.3)] hover:-translate-y-0.5">
+                    <a href="{{ route('login') }}" class="flex items-center gap-2 text-sm font-bold text-stone-900 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 px-6 py-2.5 rounded-full transition-all duration-300 shadow-[0_4px_15px_rgba(251,191,36,0.15)] hover:shadow-[0_4px_25px_rgba(251,191,36,0.3)] hover:-translate-y-0.5">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                         </svg>

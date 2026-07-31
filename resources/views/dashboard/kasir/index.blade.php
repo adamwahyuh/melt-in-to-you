@@ -132,6 +132,34 @@
                             @endforeach
                         </ul>
                     </div>
+                    <!-- Bagian Alamat Pengiriman -->
+                    <div class="bg-stone-50 rounded-lg p-4 border border-stone-100 mb-5">
+                        <div class="flex items-center gap-2 mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <h4 class="text-xs font-bold text-stone-500 uppercase tracking-wider">Detail Pengiriman</h4>
+                        </div>
+                        
+                        <div class="text-sm text-stone-700 ml-6 space-y-1.5">
+                            @if($order->address)
+                                <p class="leading-relaxed">
+                                    <span class="font-semibold block text-stone-800">Alamat Lengkap:</span>
+                                    {{ $order->address->alamat }}
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                                    <p><span class="font-medium text-stone-500">RT/RW:</span> {{ $order->address->rt }} / {{ $order->address->rw }}</p>
+                                    <p><span class="font-medium text-stone-500">Kelurahan:</span> {{ $order->address->kelurahan }}</p>
+                                    <p><span class="font-medium text-stone-500">Kecamatan:</span> {{ $order->address->kecamatan }}</p>
+                                    <p><span class="font-medium text-stone-500">Kota:</span> {{ $order->address->kota }}</p>
+                                    <p><span class="font-medium text-stone-500">Kode Pos:</span> {{ $order->address->kode_pos }}</p>
+                                </div>
+                            @else
+                                <p class="text-stone-400 italic">Data alamat tidak tersedia.</p>
+                            @endif
+                        </div>
+                    </div>
 
                     <!-- Bottom: Total & Aksi -->
                     <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-2">

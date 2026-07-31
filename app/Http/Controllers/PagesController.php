@@ -85,7 +85,7 @@ class PagesController extends Controller
         $userLoggedId = Auth::id();
         $user = User::with('cup.details')->where('id', $userLoggedId)->first();
 
-        $cup = $user->cup;
+        $cup = $user->cup ?? [];
         $cupDetails = $user->cup->details ?? [];
         return view('cup.index', compact('cupDetails', 'cup'));
     }

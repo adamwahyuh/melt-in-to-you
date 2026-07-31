@@ -21,7 +21,7 @@ class AuthenticationTest extends TestCase
             'password_confirmation' => 'password',
         ]);
 
-        $response->assertRedirect(route('page.login'));
+        $response->assertRedirect(route('login'));
     }
 
     public function test_user_login(){
@@ -35,7 +35,7 @@ class AuthenticationTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertRedirect(route('page.home'));
+        $response->assertRedirect(route('page.address.create', $user->username));
     }
 
     public function test_user_logout(){
@@ -48,7 +48,7 @@ class AuthenticationTest extends TestCase
 
         $response = $this->post(route('post.logout'));
 
-        $response->assertRedirect(route('page.login'));
+        $response->assertRedirect(route('login'));
     }
 
     public function test_admin_login(){

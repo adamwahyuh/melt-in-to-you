@@ -11,13 +11,19 @@ class OrderController extends Controller
     //
     public function transferCupToOrder(){
         $userLoggedId = Auth::id();    
-        $user = User::where('id', $userLoggedId)->first();
+        $user = User::with('addresses')->where('id', $userLoggedId)->first();
         
+        $activeAddress = $user->addresses()->where('is_active', true)->first();
+
+        if($activeAddress === null) return back('error', 'Tidak ada alamat utama');
+        // dd($activeAddress);
         if(!$user->cup || $user->cup->details->isEmpty()) return back('error', 'Tidak ada produk di dalam cup');
+
 
         $order = $user->orders()->create([
             'user_id', $user->id, 
-            'dipesan_pada' => now()
+            'dipesan_pada' => now(),
+            'address_id' => $activeAddress->id,
         ]);
         
         foreach($user->cup->details as $detail) {

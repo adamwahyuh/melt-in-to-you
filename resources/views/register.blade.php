@@ -32,7 +32,7 @@
 
             <p class="text-center text-sm text-amber-700 mt-6">
                 Sudah punya akun?
-                <a href="{{ route('page.login') }}" class="text-amber-900 font-semibold hover:underline">Login di sini</a>
+                <a href="{{ route('login') }}" class="text-amber-900 font-semibold hover:underline">Login di sini</a>
             </p>
         </div>
     </div>

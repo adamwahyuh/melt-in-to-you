@@ -24,16 +24,15 @@
                         class="w-32 md:w-56 drop-shadow-[0_18px_25px_rgba(0,0,0,0.45)] animate-[float_4s_ease-in-out_infinite]"
                     >
                     <div class="text-center">
-                        <p class="font-semibold text-amber-50 tracking-wide">SistemSurat</p>
-                        <p class="text-xs text-amber-100/50 mt-1">Manis dan rapi, seperti suratmu</p>
+                        <p class="font-semibold text-amber-50 tracking-wide">{{ config('app.name') }}</p>
                     </div>
                 </div>
 
                 {{-- form side --}}
                 <div class="order-2 px-8 py-10 sm:px-12 sm:py-14 flex flex-col justify-center">
 
-                    <h1 class="text-2xl font-semibold text-amber-50">Selamat datang kembali</h1>
-                    <p class="text-sm text-amber-100/50 mb-8">Masuk untuk lanjut kelola suratmu</p>
+                    <h1 class="text-2xl font-semibold text-amber-50">Selamat datang!
+                    </h1>
 
                     @if ($errors->any())
                         <div class="mb-5 rounded-xl border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm text-red-200">

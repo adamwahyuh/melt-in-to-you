@@ -39,6 +39,12 @@ class User extends Authenticatable
                 ->withTimestamps();
     }
 
+    public function activeAddress()
+    {
+        return $this->hasOne(Address::class, 'user_id')
+                    ->where('is_active', true);
+    }
+
     public function cup(){
         return $this->hasOne(Cup::class, 'user_id');
     }

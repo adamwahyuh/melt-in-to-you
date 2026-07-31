@@ -30,6 +30,10 @@ class Order extends Model
         return $this->details->sum('sub_total');
     }
 
+    public function address(){
+        return $this->belongsTo(Address::class, 'address_id');
+    }
+
     public function getStatusAttribute(): string{
         if($this->diterima_pada) return 'Selesai';
         if($this->dikirim_pada) return 'Sedang dikirim';
