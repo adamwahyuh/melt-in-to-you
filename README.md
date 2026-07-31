@@ -22,7 +22,16 @@ Jalankan install
 ./install.sh
 ```
 ---
+# Informasi akun Demo 
 
+### Semua privilages
+- username = adam
+- password = adam
+
+### User Biasa
+- username = vera
+- password = vera
+---
 # 📖 Daftar Isi
 
 - Tentang Aplikasi
