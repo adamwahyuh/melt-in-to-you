@@ -3,9 +3,11 @@ echo "=========================="
 echo "Setting up App"
 echo "=========================="
 
-composer install && npm i
+composer install 
 
-if [ ! -f .env]; then
+npm i
+
+if [ ! -f .env ]; then
     cp .env.example .env
     echo "Copying env"
 fi
